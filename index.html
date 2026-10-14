@@ -175,7 +175,10 @@
     if (!propio && d.t === b.t && d.m === b.m) q.set("e", String(sel + 1));
     else { q.set("t", d.t); q.set("m", d.m); }
     q.set("de", d.de);
-    return location.origin + location.pathname + "?" + q.toString();
+    // Si el cliente entro por /index.html la liga se alarga 10 caracteres y el
+    // QR se hace mas denso de lo necesario. Se normaliza a la raiz.
+    var raiz = location.pathname.replace(/index\.html$/, "");
+    return location.origin + raiz + "?" + q.toString();
   }
 
   function pintar() {
@@ -216,7 +219,7 @@
     $("lista").innerHTML = pedido.map(function (x, k) {
       return '<div class="renglon">' +
         '<div class="rtxt"><strong>' + esc(x.t) + '</strong>' +
-          '<span>Para: ' + esc(x.de) + '</span></div>' +
+          '<span>De: ' + esc(x.de) + '</span></div>' +
         '<div class="rcant">' + x.n + (x.n === 1 ? " caja" : " cajas") + '</div>' +
         '<button type="button" class="quitar" data-k="' + k + '" aria-label="Quitar">×</button>' +
       '</div>';

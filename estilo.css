@@ -89,3 +89,35 @@ button.ac:active{transform:translateY(1px)}
 .cita{font-size:15px;line-height:1.6;white-space:pre-line;color:var(--tinta)}
 .cita em{display:block;margin-top:13px;color:var(--verde);font-size:15px}
 .dialogo .acciones{margin-top:22px}
+
+/* ------------------------------------------------- cantidad y lista del pedido */
+.fila{display:flex;gap:11px;align-items:center;flex-wrap:wrap}
+.cuenta{display:flex;align-items:center;border:1px solid #ded2c0;border-radius:9px;overflow:hidden;background:#fffdf8}
+.cuenta input{width:62px;border:0;text-align:center;font-size:17px;padding:10px 0;background:transparent;
+  -moz-appearance:textfield}
+.cuenta input::-webkit-outer-spin-button,.cuenta input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pm{border:0;background:#f0e6d6;color:var(--tinta);width:40px;height:42px;font-size:19px;cursor:pointer;line-height:1}
+.pm:hover{background:#e6d8c2}
+.ac.crece{flex:1;min-width:190px}
+.vacio{font-size:14px;color:#a0907f;font-family:system-ui,sans-serif;padding:6px 0 2px}
+.renglon{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid #efe5d6}
+.renglon:last-of-type{border-bottom:0}
+.rtxt{flex:1;min-width:0}
+.rtxt strong{display:block;font-size:15px;color:var(--tinta);font-weight:normal;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rtxt span{font-size:12px;color:#a0907f;font-family:system-ui,sans-serif}
+.rcant{font-size:13px;color:var(--verde);font-family:system-ui,sans-serif;white-space:nowrap;font-weight:600}
+.quitar{border:0;background:transparent;color:#c0a894;font-size:21px;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;line-height:1}
+.quitar:hover{background:#f4e9e7;color:var(--rojo)}
+.total{font-size:14px;color:var(--rojo);font-family:system-ui,sans-serif;font-weight:600;
+  margin-top:14px;padding-top:13px;border-top:1px solid rgba(201,162,39,.4)}
+#panelPedido .acciones{margin-top:16px;justify-content:flex-start}
+.lado{position:sticky;top:18px}
+@media (max-width:900px){.lado{position:static}}
+.qrcaja{background:var(--crema);border-radius:14px;padding:16px;margin-top:16px;text-align:center;
+  box-shadow:0 14px 40px rgba(0,0,0,.3)}
+.qrcaja #qr{display:inline-block;padding:9px;background:#fff;border:1px solid #e3d8c8;border-radius:9px;line-height:0}
+.cita + .cita{margin-top:18px;padding-top:18px;border-top:1px solid #efe5d6;border-left:3px solid var(--dorado)}
+.cuantas{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a0907f;
+  font-family:system-ui,sans-serif;margin-bottom:7px}

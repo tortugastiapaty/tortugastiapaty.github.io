@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tortugas Tía Paty</title>
-<meta name="description" content="Arma la tarjeta de Navidad que acompaña tus Tortugas Tía Paty.">
-<link rel="stylesheet" href="estilo.css?v=20261013193132">
+<meta name="description" content="Arma las tarjetas de Navidad que acompañan tus Tortugas Tía Paty.">
+<link rel="stylesheet" href="estilo.css?v=2026101400">
 </head>
 <body>
 <div class="nieve" id="nieve"></div>
 <div id="app"></div>
 
-<script src="estilos.js?v=20261013193132"></script>
-<script src="adornos.js?v=20261013193132"></script>
+<script src="estilos.js?v=2026101400"></script>
+<script src="adornos.js?v=2026101400"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
@@ -54,22 +54,26 @@
     return;
   }
 
-  // ------------------------------------------------------ modo constructor
+  // ====================================================== modo constructor
   var sel = 0, propio = false;
+  // El pedido puede llevar varias tarjetas distintas: una para los compadres,
+  // otra para la suegra, otra para la empresa. Cada una con su cantidad.
+  var pedido = [];
+  try { pedido = JSON.parse(localStorage.getItem("pedido") || "[]"); } catch (e) { pedido = []; }
 
   app.innerHTML =
     '<div class="armador">' +
       '<div class="cabeza">' +
         '<div class="marca">Tortugas Tía Paty</div>' +
-        '<h1>Arma tu tarjeta de Navidad</h1>' +
-        '<p>Escoge el mensaje que quieras —o escribe el tuyo— y fírmalo con tu nombre. ' +
-        'Quien reciba tu caja escanea el código y le aparece tal cual lo dejaste.</p>' +
+        '<h1>Arma tus tarjetas de Navidad</h1>' +
+        '<p>Escoge el mensaje que quieras —o escribe el tuyo—, fírmalo y dinos cuántas cajas ' +
+        'llevan esa tarjeta. Puedes agregar tantas tarjetas distintas como quieras.</p>' +
       '</div>' +
       '<div class="cols">' +
         '<div>' +
           '<div class="panel">' +
             '<h2><b>1</b>Escoge el mensaje</h2>' +
-            '<div class="ops" id="ops"></div>' +
+            '<div id="ops"></div>' +
           '</div>' +
           '<div class="panel">' +
             '<h2><b>2</b>Ajústalo a tu gusto</h2>' +
@@ -79,25 +83,44 @@
             '<input id="de" maxlength="70" placeholder="Familia">' +
             '<div class="ayuda">Así va a aparecer firmada la tarjeta.</div>' +
           '</div>' +
-          '<div class="listo">' +
-            '<h2 style="margin-bottom:16px"><b>3</b>Tu tarjeta está lista</h2>' +
-            '<div id="qr"></div>' +
-            '<div class="liga" id="liga"></div>' +
-            '<div class="acciones">' +
-              '<button class="ac pri" id="bwa">Mandársela a Tía Paty</button>' +
-              '<button class="ac" id="bcopiar">Copiar liga</button>' +
-              '<button class="ac" id="bver">Verla</button>' +
+          '<div class="panel">' +
+            '<h2><b>3</b>¿Cuántas cajas llevan esta tarjeta?</h2>' +
+            '<div class="fila">' +
+              '<div class="cuenta">' +
+                '<button type="button" class="pm" id="bmenos" aria-label="Una menos">–</button>' +
+                '<input id="cant" type="number" min="1" max="999" value="1" inputmode="numeric">' +
+                '<button type="button" class="pm" id="bmas" aria-label="Una más">+</button>' +
+              '</div>' +
+              '<button class="ac pri crece" id="bagregar">Agregar a mi pedido</button>' +
+            '</div>' +
+            '<div class="ayuda">Agrega una tarjeta por cada grupo: los compadres, la suegra, ' +
+            'la oficina… cada quien con su mensaje.</div>' +
+          '</div>' +
+          '<div class="panel" id="panelPedido">' +
+            '<h2><b>4</b>Tu pedido</h2>' +
+            '<div id="lista"></div>' +
+            '<div class="total" id="total"></div>' +
+            '<div class="acciones" id="accionesPedido">' +
+              '<button class="ac pri" id="bwa">Mandar mi pedido a Tía Paty</button>' +
+              '<button class="ac" id="bvaciar">Vaciar</button>' +
             '</div>' +
           '</div>' +
         '</div>' +
-        '<div><div class="previo">Así se va a ver</div><div id="vista"></div></div>' +
+        '<div class="lado">' +
+          '<div class="previo">Así se va a ver</div>' +
+          '<div id="vista"></div>' +
+          '<div class="qrcaja">' +
+            '<div id="qr"></div>' +
+            '<div class="ayuda" style="text-align:center">Este es el código que va en la caja.</div>' +
+          '</div>' +
+        '</div>' +
       '</div>' +
       '<div class="velo" id="confirma" hidden>' +
         '<div class="dialogo">' +
-          '<h3>Esto es lo que va a decir tu tarjeta</h3>' +
+          '<h3>Esto es lo que vamos a preparar</h3>' +
           '<div id="confirmaTxt"></div>' +
           '<div class="acciones">' +
-            '<button class="ac pri" id="bmandar">Sí, mandarla</button>' +
+            '<button class="ac pri" id="bmandar">Sí, mandarlo</button>' +
             '<button class="ac" id="bcancelar">Déjame cambiarle algo</button>' +
           '</div>' +
         '</div>' +
@@ -106,9 +129,7 @@
 
   var $ = function (id) { return document.getElementById(id); };
 
-  // botones de estilo
-  // Los botones van en bloques por grupo: con tantos mensajes, sueltos no se
-  // encuentra nada.
+  // --------------------------------------------- botones de estilo, por grupo
   var ops = $("ops"), grupoActual = null, rejilla = null;
   window.ESTILOS.forEach(function (e, k) {
     if (e.g !== grupoActual) {
@@ -147,27 +168,22 @@
              de: $("de").value.trim() || "quien te quiere" };
   }
 
-  function liga() {
-    var d = datos(), b = window.ESTILOS[sel], q = new URLSearchParams();
-    // Si no le movió al texto, basta con el número del estilo: la liga queda corta
-    // y el código QR sale con cuadritos grandes, que es lo que se lee bien impreso.
-    if (!propio && d.t === b.t && d.m === b.m) {
-      q.set("e", String(sel + 1));
-    } else {
-      q.set("t", d.t); q.set("m", d.m);
-    }
+  // Si no le movio al texto basta el numero del estilo: la liga queda corta y
+  // el codigo QR sale con cuadritos grandes, que es lo que se lee bien impreso.
+  function ligaDe(d) {
+    var b = window.ESTILOS[sel], q = new URLSearchParams();
+    if (!propio && d.t === b.t && d.m === b.m) q.set("e", String(sel + 1));
+    else { q.set("t", d.t); q.set("m", d.m); }
     q.set("de", d.de);
     return location.origin + location.pathname + "?" + q.toString();
   }
 
-  var qr = null;
   function pintar() {
     var d = datos();
     $("vista").innerHTML = tarjeta(d);
-    var u = liga();
-    $("liga").textContent = u;
     $("qr").innerHTML = "";
-    qr = new QRCode($("qr"), { text: u, width: 150, height: 150, correctLevel: QRCode.CorrectLevel.M });
+    new QRCode($("qr"), { text: ligaDe(d), width: 128, height: 128,
+                          correctLevel: QRCode.CorrectLevel.M });
   }
 
   ["t", "m"].forEach(function (id) {
@@ -175,30 +191,83 @@
   });
   $("de").addEventListener("input", pintar);
 
-  $("bver").onclick = function () { window.open(liga(), "_blank"); };
-  $("bcopiar").onclick = function () {
-    var b = $("bcopiar");
-    navigator.clipboard.writeText(liga()).then(function () {
-      b.textContent = "¡Copiada!";
-      setTimeout(function () { b.textContent = "Copiar liga"; }, 1800);
-    }).catch(function () { b.textContent = "Cópiala de arriba"; });
-  };
-  function recado() {
-    var d = datos();
-    var raya = "\u2014\u2014\u2014\u2014";
-    return ["Hola! Ya arm\u00e9 mi tarjeta para las tortugas.", "",
-            raya, d.t, "", d.m, "", "Con cari\u00f1o, " + d.de, raya, "",
-            "As\u00ed se ve: " + liga()].join("\n");
+  // ------------------------------------------------------------- la cantidad
+  function cant() {
+    var n = parseInt($("cant").value, 10);
+    return (n >= 1 && n <= 999) ? n : 1;
+  }
+  $("bmenos").onclick = function () { $("cant").value = Math.max(1, cant() - 1); };
+  $("bmas").onclick   = function () { $("cant").value = Math.min(999, cant() + 1); };
+
+  // --------------------------------------------------------------- el pedido
+  function guardar() {
+    try { localStorage.setItem("pedido", JSON.stringify(pedido)); } catch (e) {}
   }
 
+  function verLista() {
+    var p = $("panelPedido");
+    if (!pedido.length) {
+      $("lista").innerHTML = '<div class="vacio">Todavía no has agregado ninguna tarjeta.</div>';
+      $("total").textContent = "";
+      $("accionesPedido").style.display = "none";
+      return;
+    }
+    $("accionesPedido").style.display = "";
+    $("lista").innerHTML = pedido.map(function (x, k) {
+      return '<div class="renglon">' +
+        '<div class="rtxt"><strong>' + esc(x.t) + '</strong>' +
+          '<span>Para: ' + esc(x.de) + '</span></div>' +
+        '<div class="rcant">' + x.n + (x.n === 1 ? " caja" : " cajas") + '</div>' +
+        '<button type="button" class="quitar" data-k="' + k + '" aria-label="Quitar">×</button>' +
+      '</div>';
+    }).join("");
+    var tot = pedido.reduce(function (a, x) { return a + x.n; }, 0);
+    $("total").textContent = "Total: " + tot + (tot === 1 ? " caja" : " cajas") +
+      " · " + pedido.length + (pedido.length === 1 ? " tarjeta" : " tarjetas distintas");
+    [].forEach.call($("lista").querySelectorAll(".quitar"), function (b) {
+      b.onclick = function () {
+        pedido.splice(Number(b.dataset.k), 1); guardar(); verLista();
+      };
+    });
+  }
 
-  // Se confirma antes de mandar: lo que ve aqui es lo que va a decir la tarjeta,
-  // y asi no llegan dos ligas del mismo cliente sin saber cual vale.
-  $("bwa").onclick = function () {
+  $("bagregar").onclick = function () {
     var d = datos();
-    $("confirmaTxt").innerHTML =
-      '<div class="cita"><strong>' + esc(d.t) + '</strong>' + esc(d.m) +
-      '<em>Con cariño, ' + esc(d.de) + '</em></div>';
+    if (!d.t || !d.m) return;
+    pedido.push({ t: d.t, m: d.m, de: d.de, n: cant(), liga: ligaDe(d) });
+    guardar(); verLista();
+    $("cant").value = 1;
+    var b = $("bagregar"), antes = b.textContent;
+    b.textContent = "✓ Agregada";
+    setTimeout(function () { b.textContent = antes; }, 1400);
+    $("panelPedido").scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  $("bvaciar").onclick = function () {
+    pedido = []; guardar(); verLista();
+  };
+
+  // ------------------------------------------------- confirmar y mandar todo
+  function recado() {
+    var lineas = ["Hola! Ya armé mi pedido de tortugas.", ""];
+    var raya = "————";
+    pedido.forEach(function (x, k) {
+      lineas.push("TARJETA " + (k + 1) + " — " + x.n + (x.n === 1 ? " caja" : " cajas"));
+      lineas.push(raya, x.t, "", x.m, "", "Con cariño, " + x.de, raya);
+      lineas.push("Así se ve: " + x.liga, "");
+    });
+    var tot = pedido.reduce(function (a, x) { return a + x.n; }, 0);
+    lineas.push("TOTAL: " + tot + (tot === 1 ? " caja" : " cajas"));
+    return lineas.join("\n");
+  }
+
+  $("bwa").onclick = function () {
+    if (!pedido.length) return;
+    $("confirmaTxt").innerHTML = pedido.map(function (x, k) {
+      return '<div class="cita"><span class="cuantas">Tarjeta ' + (k + 1) + ' · ' + x.n +
+        (x.n === 1 ? " caja" : " cajas") + '</span><strong>' + esc(x.t) + '</strong>' +
+        esc(x.m) + '<em>Con cariño, ' + esc(x.de) + '</em></div>';
+    }).join("");
     $("confirma").hidden = false;
     document.body.style.overflow = "hidden";
   };
@@ -215,6 +284,7 @@
   };
 
   cargar();
+  verLista();
   window.nevar(document.getElementById("nieve"), 22);
 })();
 </script>

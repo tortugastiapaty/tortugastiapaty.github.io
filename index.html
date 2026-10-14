@@ -92,6 +92,16 @@
         '</div>' +
         '<div><div class="previo">Así se va a ver</div><div id="vista"></div></div>' +
       '</div>' +
+      '<div class="velo" id="confirma" hidden>' +
+        '<div class="dialogo">' +
+          '<h3>Esto es lo que va a decir tu tarjeta</h3>' +
+          '<div id="confirmaTxt"></div>' +
+          '<div class="acciones">' +
+            '<button class="ac pri" id="bmandar">Sí, mandarla</button>' +
+            '<button class="ac" id="bcancelar">Déjame cambiarle algo</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
     '</div>';
 
   var $ = function (id) { return document.getElementById(id); };
@@ -159,11 +169,44 @@
       setTimeout(function () { b.textContent = "Copiar liga"; }, 1800);
     }).catch(function () { b.textContent = "Cópiala de arriba"; });
   };
+  function recado() {
+    var d = datos();
+    return "Hola! Ya armé mi tarjeta para las tortugas.
+
+" +
+           "————
+" + d.t + "
+
+" + d.m + "
+
+" +
+           "Con cariño, " + d.de + "
+————
+
+" +
+           "Así se ve: " + liga();
+  }
+
+  // Se confirma antes de mandar: lo que ve aqui es lo que va a decir la tarjeta,
+  // y asi no llegan dos ligas del mismo cliente sin saber cual vale.
   $("bwa").onclick = function () {
     var d = datos();
-    var txt = "Hola! Ya armé mi tarjeta para las tortugas.\n\n" +
-              "De parte de: " + d.de + "\n\n" + liga();
-    window.open("https://wa.me/" + window.TEL + "?text=" + encodeURIComponent(txt), "_blank");
+    $("confirmaTxt").innerHTML =
+      '<div class="cita"><strong>' + esc(d.t) + '</strong>' + esc(d.m) +
+      '<em>Con cariño, ' + esc(d.de) + '</em></div>';
+    $("confirma").hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+  $("bcancelar").onclick = function () {
+    $("confirma").hidden = true;
+    document.body.style.overflow = "";
+  };
+  $("confirma").addEventListener("click", function (ev) {
+    if (ev.target === $("confirma")) $("bcancelar").onclick();
+  });
+  $("bmandar").onclick = function () {
+    window.open("https://wa.me/" + window.TEL + "?text=" + encodeURIComponent(recado()), "_blank");
+    $("bcancelar").onclick();
   };
 
   cargar();

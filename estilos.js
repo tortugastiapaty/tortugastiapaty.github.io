@@ -55,6 +55,15 @@ window.ESTILOS = [
 
   // ------------------------------------------------------------------ fe
   { g: "De fe", n: "De fe", t: "Que la paz de esta Navidad se quede en tu casa",
-    m: "Que el Niño Dios les traiga salud, unión y la tranquilidad de saberse acompañados. Que lo que este año costó, el que viene lo devuelva multiplicado.\n\nCon nuestras oraciones y nuestro cariño." }
+    m: "Que el Niño Dios les traiga salud, unión y la tranquilidad de saberse acompañados. Que lo que este año costó, el que viene lo devuelva multiplicado.\n\nCon nuestras oraciones y nuestro cariño." },
+
+  { g: "De fe", n: "Nacó en lo sencillo", t: "Lo más grande nació en lo más sencillo",
+    m: "No hubo lugar en la posada, ni lujos, ni nada de lo que uno esperaría. Y aun así esa noche cambió todo.\n\nQue esta Navidad te recuerde que lo bueno casi nunca llega como uno lo imaginó, pero llega." },
+
+  { g: "De fe", n: "Bendiciones", t: "Que Dios bendiga tu casa y a los que viven en ella",
+    m: "Que no falte el pan en tu mesa, ni la salud en los tuyos, ni la fe en los días en que cuesta tenerla.\n\nFeliz Navidad. Vas en nuestras oraciones." },
+
+  { g: "De fe", n: "Gracias a Dios", t: "Gracias a Dios por un año más juntos",
+    m: "Por lo que se nos dio y por lo que se nos cuidó, aunque no siempre lo hayamos visto en el momento.\n\nQue esta Navidad nos encuentre agradecidos, y que el año que viene nos halle igual de unidos." }
 ];
 window.TEL = "5218180297400";

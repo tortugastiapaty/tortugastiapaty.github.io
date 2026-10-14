@@ -1,0 +1,73 @@
+:root{--rojo:#9e2b2b;--rojoc:#c0392b;--verde:#1b4332;--verde2:#2d6a4f;--crema:#fdf6ec;--dorado:#c9a227;--tinta:#2a1d16}
+*{box-sizing:border-box}
+body{margin:0;background:var(--verde);background-image:radial-gradient(circle at 50% 0%,#2d6a4f 0%,#133028 70%);
+  background-attachment:fixed;font-family:Georgia,'Times New Roman',serif;color:var(--tinta);
+  min-height:100vh;padding:22px 14px}
+.nieve{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.nieve span{position:absolute;top:-16px;color:#fff;opacity:.5;animation:cae linear infinite}
+@keyframes cae{to{transform:translateY(108vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nieve{display:none}}
+
+/* ---------------------------------------------------------- la tarjeta */
+.tarjeta{position:relative;z-index:1;background:var(--crema);max-width:440px;width:100%;margin:0 auto;
+  border-radius:16px;padding:0 0 26px;text-align:center;box-shadow:0 20px 55px rgba(0,0,0,.45);overflow:hidden}
+.tarjeta::after{content:"";position:absolute;inset:9px;border:2px solid var(--dorado);border-radius:9px;pointer-events:none;opacity:.5}
+.guirnalda{display:block;width:100%;height:64px}
+.esq{position:absolute;width:88px;height:88px;opacity:.9}
+.esq.il{left:4px;bottom:4px}
+.esq.id{right:4px;bottom:4px;transform:scaleX(-1)}
+.cuerpo{position:relative;z-index:2;padding:4px 26px 0}
+.marca{font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--dorado);font-weight:bold;margin:2px 0 4px}
+.sep{display:flex;align-items:center;justify-content:center;gap:9px;margin:10px 0 20px;color:var(--verde2)}
+.sep i{display:block;width:46px;height:1px;background:rgba(201,162,39,.65)}
+.tarjeta h1{font-size:29px;line-height:1.24;margin:0 0 20px;color:var(--rojo);font-weight:normal}
+.tarjeta p{font-size:17px;line-height:1.66;margin:0 0 15px;white-space:pre-line}
+.firma{font-size:18px;color:var(--verde);margin-top:24px;font-style:italic}
+.firma span{color:var(--rojo);font-style:normal}
+.tarjeta hr{border:0;border-top:1px solid rgba(201,162,39,.45);margin:26px 34px 18px}
+.cierre{font-size:13px;color:#8a776a;margin-bottom:11px;font-family:system-ui,sans-serif}
+a.boton{display:inline-block;background:var(--rojo);color:#fff;text-decoration:none;
+  padding:9px 20px;border-radius:999px;font-size:14px;font-family:system-ui,sans-serif;
+  box-shadow:0 4px 12px rgba(158,43,43,.3)}
+.pie{font-size:11px;color:#a89787;margin-top:40px;font-family:system-ui,sans-serif;letter-spacing:.05em}
+
+/* ------------------------------------------------------- el constructor */
+.armador{position:relative;z-index:1;max-width:980px;margin:0 auto}
+.cabeza{text-align:center;color:var(--crema);margin:10px 0 30px}
+.cabeza .marca{color:var(--dorado);margin-bottom:12px}
+.cabeza h1{font-size:33px;margin:0 0 12px;font-weight:normal}
+.cabeza p{font-size:16px;opacity:.82;margin:0 auto;max-width:520px;line-height:1.6}
+.cols{display:grid;grid-template-columns:1fr 440px;gap:26px;align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--crema);border-radius:14px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.3)}
+.panel h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dorado);
+  margin:0 0 14px;font-family:system-ui,sans-serif}
+.panel h2 b{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;
+  background:var(--verde2);color:#fff;font-size:11px;margin-right:7px;text-align:center}
+.panel + .panel{margin-top:18px}
+.ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.op{border:2px solid #e3d8c8;background:#fffdf8;border-radius:10px;padding:11px 12px;cursor:pointer;
+  text-align:left;font-family:system-ui,sans-serif;transition:.12s}
+.op:hover{border-color:var(--dorado)}
+.op[aria-pressed="true"]{border-color:var(--rojo);background:#fdf2f0}
+.op .et{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a0907f;display:block;margin-bottom:4px}
+.op .ti{font-size:13px;color:var(--tinta);line-height:1.35;font-weight:600}
+label{display:block;font-size:12px;color:#8a776a;font-family:system-ui,sans-serif;margin:13px 0 5px}
+input,textarea{width:100%;border:1px solid #ded2c0;border-radius:9px;padding:11px 12px;
+  font-size:15px;font-family:Georgia,serif;color:var(--tinta);background:#fffdf8}
+input:focus,textarea:focus{outline:2px solid var(--dorado);outline-offset:-1px;border-color:transparent}
+textarea{min-height:122px;line-height:1.55;resize:vertical}
+.ayuda{font-size:11px;color:#a0907f;font-family:system-ui,sans-serif;margin-top:5px}
+
+.listo{background:var(--crema);border-radius:14px;padding:22px;margin-top:18px;text-align:center;
+  box-shadow:0 14px 40px rgba(0,0,0,.3)}
+#qr{display:inline-block;padding:11px;background:#fff;border:1px solid #e3d8c8;border-radius:10px;line-height:0}
+.liga{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#8a776a;word-break:break-all;
+  background:#fffdf8;border:1px solid #ede3d4;border-radius:8px;padding:9px;margin:13px 0}
+.acciones{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+button.ac{border:0;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;
+  font-family:system-ui,sans-serif;background:#e8dcc9;color:var(--tinta)}
+button.ac.pri{background:var(--rojo);color:#fff;box-shadow:0 4px 12px rgba(158,43,43,.3)}
+button.ac:active{transform:translateY(1px)}
+.previo{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(253,246,236,.6);
+  text-align:center;margin-bottom:11px;font-family:system-ui,sans-serif}

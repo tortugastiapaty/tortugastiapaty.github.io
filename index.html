@@ -3,147 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tortugas Tía Paty — Feliz Navidad</title>
-<style>
-  :root{--rojo:#9e2b2b;--rojoc:#c0392b;--verde:#1b4332;--verde2:#2d6a4f;--crema:#fdf6ec;--dorado:#c9a227;--tinta:#2a1d16}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--verde);background-image:radial-gradient(circle at 50% 0%,#2d6a4f 0%,#133028 70%);
-    font-family:Georgia,'Times New Roman',serif;color:var(--tinta);
-    display:flex;align-items:center;justify-content:center;min-height:100vh;padding:22px 14px}
-  .nieve{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-  .nieve span{position:absolute;top:-16px;color:#fff;opacity:.5;animation:cae linear infinite}
-  @keyframes cae{to{transform:translateY(108vh) rotate(360deg)}}
-  @media (prefers-reduced-motion:reduce){.nieve{display:none}}
-
-  .tarjeta{position:relative;z-index:1;background:var(--crema);max-width:440px;width:100%;
-    border-radius:16px;padding:0 0 26px;text-align:center;
-    box-shadow:0 20px 55px rgba(0,0,0,.45);overflow:hidden}
-  .tarjeta::after{content:"";position:absolute;inset:9px;border:2px solid var(--dorado);border-radius:9px;pointer-events:none;opacity:.5}
-
-  /* guirnalda superior */
-  .guirnalda{display:block;width:100%;height:64px}
-  /* esquinas */
-  .esq{position:absolute;width:88px;height:88px;opacity:.9}
-  .esq.il{left:4px;bottom:4px}
-  .esq.id{right:4px;bottom:4px;transform:scaleX(-1)}
-
-  .cuerpo{position:relative;z-index:2;padding:4px 26px 0}
-  .marca{font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--dorado);font-weight:bold;margin:2px 0 4px}
-  .sep{display:flex;align-items:center;justify-content:center;gap:9px;margin:10px 0 20px;color:var(--verde2)}
-  .sep i{display:block;width:46px;height:1px;background:rgba(201,162,39,.65)}
-  h1{font-size:29px;line-height:1.24;margin:0 0 20px;color:var(--rojo);font-weight:normal}
-  p{font-size:17px;line-height:1.66;margin:0 0 15px}
-  .firma{font-size:18px;color:var(--verde);margin-top:24px;font-style:italic}
-  .firma span{color:var(--rojo);font-style:normal}
-
-  hr{border:0;border-top:1px solid rgba(201,162,39,.45);margin:26px 34px 18px}
-  .cierre{font-size:13px;color:#8a776a;margin-bottom:11px;font-family:system-ui,sans-serif}
-  a.boton{display:inline-block;background:var(--rojo);color:#fff;text-decoration:none;
-    padding:9px 20px;border-radius:999px;font-size:14px;font-family:system-ui,sans-serif;
-    box-shadow:0 4px 12px rgba(158,43,43,.3)}
-  .pie{font-size:11px;color:#a89787;margin-top:42px;font-family:system-ui,sans-serif;letter-spacing:.05em}
-</style>
+<title>Tortugas Tía Paty</title>
+<meta name="description" content="Arma la tarjeta de Navidad que acompaña tus Tortugas Tía Paty.">
+<link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <div class="nieve" id="nieve"></div>
+<div id="app"></div>
 
-<div class="tarjeta">
-
-  <!-- Guirnalda: cuerda, pinos y esferas colgando -->
-  <svg class="guirnalda" viewBox="0 0 440 64" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 10 Q110 40 220 22 T440 10" stroke="#1b4332" stroke-width="3" fill="none"/>
-    <g fill="#2d6a4f">
-      <path d="M46 16 l11 19 h-22 z"/><path d="M46 7 l8 14 h-16 z"/>
-      <path d="M150 26 l12 21 h-24 z"/><path d="M150 16 l9 15 h-18 z"/>
-      <path d="M290 25 l12 21 h-24 z"/><path d="M290 15 l9 15 h-18 z"/>
-      <path d="M394 15 l11 19 h-22 z"/><path d="M394 6 l8 14 h-16 z"/>
-    </g>
-    <g stroke="#1b4332" stroke-width="1.6">
-      <line x1="95" y1="24" x2="95" y2="33"/><line x1="220" y1="23" x2="220" y2="34"/>
-      <line x1="345" y1="24" x2="345" y2="33"/><line x1="18" y1="13" x2="18" y2="22"/>
-      <line x1="425" y1="13" x2="425" y2="22"/>
-    </g>
-    <g>
-      <circle cx="95" cy="40" r="7.5" fill="#c0392b"/><circle cx="93" cy="38" r="2" fill="#fff" opacity=".55"/>
-      <circle cx="220" cy="41" r="8.5" fill="#c9a227"/><circle cx="218" cy="39" r="2.2" fill="#fff" opacity=".55"/>
-      <circle cx="345" cy="40" r="7.5" fill="#c0392b"/><circle cx="343" cy="38" r="2" fill="#fff" opacity=".55"/>
-      <circle cx="18" cy="29" r="6.5" fill="#c9a227"/>
-      <circle cx="425" cy="29" r="6.5" fill="#c0392b"/>
-    </g>
-  </svg>
-
-  <!-- Pinos de las esquinas de abajo -->
-  <svg class="esq il" viewBox="0 0 88 88" aria-hidden="true">
-    <g fill="#2d6a4f" opacity=".85">
-      <path d="M30 27 l10 17 h-20 z"/><path d="M30 37 l13 21 h-26 z"/><path d="M30 48 l16 26 h-32 z"/>
-    </g>
-    <rect x="27" y="74" width="6" height="8" fill="#6b4226" opacity=".85"/>
-    <g fill="#2d6a4f" opacity=".6">
-      <path d="M62 58 l9 14 h-18 z"/><path d="M62 64 l11 14 h-22 z"/>
-    </g>
-    <rect x="59.5" y="78" width="5" height="6" fill="#6b4226" opacity=".6"/>
-    <circle cx="48" cy="56" r="3.5" fill="#c0392b" opacity=".75"/>
-    <circle cx="20" cy="66" r="3" fill="#c9a227" opacity=".75"/>
-  </svg>
-  <svg class="esq id" viewBox="0 0 88 88" aria-hidden="true">
-    <g fill="#2d6a4f" opacity=".85">
-      <path d="M30 27 l10 17 h-20 z"/><path d="M30 37 l13 21 h-26 z"/><path d="M30 48 l16 26 h-32 z"/>
-    </g>
-    <rect x="27" y="74" width="6" height="8" fill="#6b4226" opacity=".85"/>
-    <g fill="#2d6a4f" opacity=".6">
-      <path d="M62 58 l9 14 h-18 z"/><path d="M62 64 l11 14 h-22 z"/>
-    </g>
-    <rect x="59.5" y="78" width="5" height="6" fill="#6b4226" opacity=".6"/>
-    <circle cx="48" cy="56" r="3.5" fill="#c9a227" opacity=".75"/>
-    <circle cx="20" cy="66" r="3" fill="#c0392b" opacity=".75"/>
-  </svg>
-
-  <div class="cuerpo">
-    <div class="marca">Tortugas Tía Paty</div>
-
-    <div class="sep"><i></i>
-      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2 l2.5 6.5 L21 11 l-6.5 2.5 L12 20 l-2.5 -6.5 L3 11 l6.5 -2.5 z" fill="#c9a227"/>
-      </svg>
-    <i></i></div>
-
-    <h1>Te deseamos una muy<br>feliz Navidad</h1>
-
-    <p>Este regalo fue pensado para ti y para tu familia, para que lo disfruten en estas épocas tan especiales y lo compartan con quienes más quieren.</p>
-    <p>Que esta Navidad les traiga salud, calma y momentos de los que se recuerdan.</p>
-
-    <div class="firma">Con cariño,<br><span id="de">la familia Panchita</span></div>
-
-    <hr>
-
-    <div class="cierre">¿Te gustaron?</div>
-    <a class="boton" id="pedido" href="#">Haz tu pedido</a>
-
-    <div class="pie">TORTUGAS TÍA PATY &middot; NAVIDAD 2026</div>
-  </div>
-</div>
-
+<script src="estilos.js"></script>
+<script src="adornos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // El número y el mensaje viven aquí: se cambian sin reimprimir etiquetas.
-  var TEL = "5218180297400";
-  var MSG = "Hola! Me gustaría levantar un pedido, quisiera informes.";
-  document.getElementById("pedido").href =
-    "https://wa.me/" + TEL + "?text=" + encodeURIComponent(MSG);
+(function () {
+  var app = document.getElementById("app");
+  var P = new URLSearchParams(location.search);
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  };
 
-  // ?de=Familia%20Panchita  -> firma de quien regala
-  var de = new URLSearchParams(location.search).get("de");
-  if (de) document.getElementById("de").textContent = de.slice(0, 60);
-
-  var n = document.getElementById("nieve");
-  for (var i = 0; i < 26; i++) {
-    var s = document.createElement("span");
-    s.textContent = Math.random() < .5 ? "❅" : "❆";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.fontSize = (8 + Math.random() * 14) + "px";
-    s.style.animationDuration = (8 + Math.random() * 13) + "s";
-    s.style.animationDelay = (-Math.random() * 20) + "s";
-    n.appendChild(s);
+  // ------------------------------------------------- la tarjeta que se recibe
+  function tarjeta(d) {
+    var wa = "https://wa.me/" + window.TEL + "?text=" +
+             encodeURIComponent("Hola! Me gustaría levantar un pedido, quisiera informes.");
+    return '<div class="tarjeta">' + window.GUIRNALDA + window.PINOS +
+      '<div class="cuerpo">' +
+        '<div class="marca">Tortugas Tía Paty</div>' + window.ESTRELLA +
+        '<h1>' + esc(d.t) + '</h1>' +
+        '<p>' + esc(d.m) + '</p>' +
+        '<div class="firma">Con cariño,<br><span>' + esc(d.de) + '</span></div>' +
+        '<hr>' +
+        '<div class="cierre">¿Te gustaron?</div>' +
+        '<a class="boton" href="' + wa + '">Haz tu pedido</a>' +
+        '<div class="pie">TORTUGAS TÍA PATY &middot; NAVIDAD 2026</div>' +
+      '</div></div>';
   }
+
+  // --------------------------------------------------------- modo tarjeta
+  if (P.has("e") || P.has("t") || P.has("m") || P.has("de")) {
+    var i = parseInt(P.get("e"), 10);
+    var base = (i >= 1 && i <= window.ESTILOS.length) ? window.ESTILOS[i - 1] : window.ESTILOS[0];
+    app.innerHTML = tarjeta({
+      t:  (P.get("t") || base.t).slice(0, 90),
+      m:  (P.get("m") || base.m).slice(0, 700),
+      de: (P.get("de") || "quien te quiere").slice(0, 70)
+    });
+    window.nevar(document.getElementById("nieve"), 26);
+    return;
+  }
+
+  // ------------------------------------------------------ modo constructor
+  var sel = 0, propio = false;
+
+  app.innerHTML =
+    '<div class="armador">' +
+      '<div class="cabeza">' +
+        '<div class="marca">Tortugas Tía Paty</div>' +
+        '<h1>Arma tu tarjeta de Navidad</h1>' +
+        '<p>Escoge el mensaje que quieras —o escribe el tuyo— y fírmalo con tu nombre. ' +
+        'Quien reciba tu caja escanea el código y le aparece tal cual lo dejaste.</p>' +
+      '</div>' +
+      '<div class="cols">' +
+        '<div>' +
+          '<div class="panel">' +
+            '<h2><b>1</b>Escoge el mensaje</h2>' +
+            '<div class="ops" id="ops"></div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<h2><b>2</b>Ajústalo a tu gusto</h2>' +
+            '<label for="t">Encabezado</label><input id="t" maxlength="90">' +
+            '<label for="m">Mensaje</label><textarea id="m" maxlength="700"></textarea>' +
+            '<label for="de">¿De parte de quién?</label>' +
+            '<input id="de" maxlength="70" placeholder="Xavier Esquino · La familia Treviño · Eliezer">' +
+            '<div class="ayuda">Así va a aparecer firmada la tarjeta.</div>' +
+          '</div>' +
+          '<div class="listo">' +
+            '<h2 style="margin-bottom:16px"><b>3</b>Tu tarjeta está lista</h2>' +
+            '<div id="qr"></div>' +
+            '<div class="liga" id="liga"></div>' +
+            '<div class="acciones">' +
+              '<button class="ac pri" id="bwa">Mandársela a Tía Paty</button>' +
+              '<button class="ac" id="bcopiar">Copiar liga</button>' +
+              '<button class="ac" id="bver">Verla</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div><div class="previo">Así se va a ver</div><div id="vista"></div></div>' +
+      '</div>' +
+    '</div>';
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // botones de estilo
+  var ops = $("ops");
+  window.ESTILOS.forEach(function (e, k) {
+    var b = document.createElement("button");
+    b.className = "op"; b.type = "button";
+    b.setAttribute("aria-pressed", k === 0 ? "true" : "false");
+    b.innerHTML = '<span class="et">' + esc(e.n) + '</span><span class="ti">' + esc(e.t) + '</span>';
+    b.onclick = function () { sel = k; propio = false; cargar(); };
+    ops.appendChild(b);
+  });
+
+  function cargar() {
+    $("t").value = window.ESTILOS[sel].t;
+    $("m").value = window.ESTILOS[sel].m;
+    marcar(); pintar();
+  }
+  function marcar() {
+    [].forEach.call(ops.children, function (b, k) {
+      b.setAttribute("aria-pressed", (!propio && k === sel) ? "true" : "false");
+    });
+  }
+
+  function datos() {
+    return { t: $("t").value.trim(), m: $("m").value.trim(),
+             de: $("de").value.trim() || "quien te quiere" };
+  }
+
+  function liga() {
+    var d = datos(), b = window.ESTILOS[sel], q = new URLSearchParams();
+    // Si no le movió al texto, basta con el número del estilo: la liga queda corta
+    // y el código QR sale con cuadritos grandes, que es lo que se lee bien impreso.
+    if (!propio && d.t === b.t && d.m === b.m) {
+      q.set("e", String(sel + 1));
+    } else {
+      q.set("t", d.t); q.set("m", d.m);
+    }
+    q.set("de", d.de);
+    return location.origin + location.pathname + "?" + q.toString();
+  }
+
+  var qr = null;
+  function pintar() {
+    var d = datos();
+    $("vista").innerHTML = tarjeta(d);
+    var u = liga();
+    $("liga").textContent = u;
+    $("qr").innerHTML = "";
+    qr = new QRCode($("qr"), { text: u, width: 150, height: 150, correctLevel: QRCode.CorrectLevel.M });
+  }
+
+  ["t", "m"].forEach(function (id) {
+    $(id).addEventListener("input", function () { propio = true; marcar(); pintar(); });
+  });
+  $("de").addEventListener("input", pintar);
+
+  $("bver").onclick = function () { window.open(liga(), "_blank"); };
+  $("bcopiar").onclick = function () {
+    var b = $("bcopiar");
+    navigator.clipboard.writeText(liga()).then(function () {
+      b.textContent = "¡Copiada!";
+      setTimeout(function () { b.textContent = "Copiar liga"; }, 1800);
+    }).catch(function () { b.textContent = "Cópiala de arriba"; });
+  };
+  $("bwa").onclick = function () {
+    var d = datos();
+    var txt = "Hola! Ya armé mi tarjeta para las tortugas.\n\n" +
+              "De parte de: " + d.de + "\n\n" + liga();
+    window.open("https://wa.me/" + window.TEL + "?text=" + encodeURIComponent(txt), "_blank");
+  };
+
+  cargar();
+  window.nevar(document.getElementById("nieve"), 22);
+})();
 </script>
 </body>
 </html>

@@ -57,7 +57,7 @@ window.ESTILOS = [
   { g: "De fe", n: "De fe", t: "Que la paz de esta Navidad se quede en tu casa",
     m: "Que el Niño Dios les traiga salud, unión y la tranquilidad de saberse acompañados. Que lo que este año costó, el que viene lo devuelva multiplicado.\n\nCon nuestras oraciones y nuestro cariño." },
 
-  { g: "De fe", n: "Nacó en lo sencillo", t: "Lo más grande nació en lo más sencillo",
+  { g: "De fe", n: "Lo sencillo", t: "Lo más grande nació en lo más sencillo",
     m: "No hubo lugar en la posada, ni lujos, ni nada de lo que uno esperaría. Y aun así esa noche cambió todo.\n\nQue esta Navidad te recuerde que lo bueno casi nunca llega como uno lo imaginó, pero llega." },
 
   { g: "De fe", n: "Bendiciones", t: "Que Dios bendiga tu casa y a los que viven en ella",

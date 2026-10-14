@@ -45,7 +45,11 @@ a.boton{display:inline-block;background:var(--rojo);color:#fff;text-decoration:n
 .panel h2 b{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;
   background:var(--verde2);color:#fff;font-size:11px;margin-right:7px;text-align:center}
 .panel + .panel{margin-top:18px}
-.ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.grupo{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b0a090;
+  font-family:system-ui,sans-serif;margin:16px 0 8px;display:flex;align-items:center;gap:9px}
+.grupo:first-child{margin-top:0}
+.grupo::after{content:"";flex:1;height:1px;background:#e9dfd0}
 .op{border:2px solid #e3d8c8;background:#fffdf8;border-radius:10px;padding:11px 12px;cursor:pointer;
   text-align:left;font-family:system-ui,sans-serif;transition:.12s}
 .op:hover{border-color:var(--dorado)}

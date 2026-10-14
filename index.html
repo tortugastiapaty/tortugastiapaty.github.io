@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tortugas Tía Paty</title>
 <meta name="description" content="Arma la tarjeta de Navidad que acompaña tus Tortugas Tía Paty.">
-<link rel="stylesheet" href="estilo.css?v=202610131925">
+<link rel="stylesheet" href="estilo.css?v=202610131928">
 </head>
 <body>
 <div class="nieve" id="nieve"></div>
 <div id="app"></div>
 
-<script src="estilos.js?v=202610131925"></script>
-<script src="adornos.js?v=202610131925"></script>
+<script src="estilos.js?v=202610131928"></script>
+<script src="adornos.js?v=202610131928"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
@@ -107,15 +107,28 @@
   var $ = function (id) { return document.getElementById(id); };
 
   // botones de estilo
-  var ops = $("ops");
+  // Los botones van en bloques por grupo: con tantos mensajes, sueltos no se
+  // encuentra nada.
+  var ops = $("ops"), grupoActual = null, rejilla = null;
   window.ESTILOS.forEach(function (e, k) {
+    if (e.g !== grupoActual) {
+      grupoActual = e.g;
+      var h = document.createElement("div");
+      h.className = "grupo"; h.textContent = e.g;
+      ops.appendChild(h);
+      rejilla = document.createElement("div");
+      rejilla.className = "rejilla";
+      ops.appendChild(rejilla);
+    }
     var b = document.createElement("button");
     b.className = "op"; b.type = "button";
     b.setAttribute("aria-pressed", k === 0 ? "true" : "false");
+    b.dataset.k = k;
     b.innerHTML = '<span class="et">' + esc(e.n) + '</span><span class="ti">' + esc(e.t) + '</span>';
     b.onclick = function () { sel = k; propio = false; cargar(); };
-    ops.appendChild(b);
+    rejilla.appendChild(b);
   });
+  var botones = ops.querySelectorAll(".op");
 
   function cargar() {
     $("t").value = window.ESTILOS[sel].t;
@@ -123,8 +136,9 @@
     marcar(); pintar();
   }
   function marcar() {
-    [].forEach.call(ops.children, function (b, k) {
-      b.setAttribute("aria-pressed", (!propio && k === sel) ? "true" : "false");
+    [].forEach.call(botones, function (b) {
+      b.setAttribute("aria-pressed",
+        (!propio && Number(b.dataset.k) === sel) ? "true" : "false");
     });
   }
 

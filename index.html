@@ -171,21 +171,12 @@
   };
   function recado() {
     var d = datos();
-    return "Hola! Ya armé mi tarjeta para las tortugas.
-
-" +
-           "————
-" + d.t + "
-
-" + d.m + "
-
-" +
-           "Con cariño, " + d.de + "
-————
-
-" +
-           "Así se ve: " + liga();
+    var raya = "\u2014\u2014\u2014\u2014";
+    return ["Hola! Ya arm\u00e9 mi tarjeta para las tortugas.", "",
+            raya, d.t, "", d.m, "", "Con cari\u00f1o, " + d.de, raya, "",
+            "As\u00ed se ve: " + liga()].join("\n");
   }
+
 
   // Se confirma antes de mandar: lo que ve aqui es lo que va a decir la tarjeta,
   // y asi no llegan dos ligas del mismo cliente sin saber cual vale.
